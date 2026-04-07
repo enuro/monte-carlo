@@ -5,9 +5,9 @@ services:
       context: ./backend
     environment:
       - BACKEND_PORT=8841
+    ports:
+      - "8841:8841"
     restart: unless-stopped
-    networks:
-      - app-network
     healthcheck:
       test:
         - CMD-SHELL
@@ -17,34 +17,10 @@ services:
       retries: 3
       start_period: 30s
 
-  nginx:
+  frontend:
     build:
       context: .
       dockerfile: nginx/Dockerfile
     ports:
       - "80:80"
-      - "443:443"
-    environment:
-      - DOMAIN=${DOMAIN}
-    volumes:
-      - ./certbot/conf:/etc/letsencrypt:ro
-      - ./certbot/www:/var/www/certbot:ro
-    depends_on:
-      backend:
-        condition: service_healthy
     restart: unless-stopped
-    networks:
-      - app-network
-
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    # Проверяет и обновляет сертификаты каждые 12 часов
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew --quiet; sleep 12h & wait $${!}; done;'"
-    restart: unless-stopped
-
-networks:
-  app-network:
-    driver: bridge
