@@ -22,5 +22,5 @@ services:
       context: .
       dockerfile: nginx/Dockerfile
     ports:
-      - "811:811"
+      - "3000:811"
     restart: unless-stopped
