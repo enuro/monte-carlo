@@ -1,0 +1,443 @@
+:root {
+  --bg:           #c8c8c8;
+  --page-bg:      #e8e8e8;
+  --header-from:  #1a4a7a;
+  --header-to:    #2a6aaa;
+  --panel-head:   #336699;
+  --panel-head2:  #4477aa;
+  --panel-bg:     #ffffff;
+  --panel-border: #8aaac8;
+  --row-alt:      #dce8f4;
+  --row-hover:    #c8daea;
+  --text:         #222222;
+  --text-light:   #555555;
+  --link:         #224488;
+  --link-hover:   #cc3300;
+  --btn-bg:       #dde8f0;
+  --btn-border:   #7090b0;
+  --btn-hover:    #c5d8ea;
+  --green:        #007700;
+  --red:          #cc0000;
+  --yellow:       #997700;
+  --accent:       #cc3300;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  background: var(--page-bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  min-height: 100%;
+}
+
+/* ── Обёртка страницы ── */
+.app-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 0 24px;
+}
+
+/* ── Шапка ── */
+.forum-header {
+  background: linear-gradient(135deg, var(--header-from), var(--header-to));
+  padding: 14px 20px 12px;
+  border-bottom: 3px solid #0d3560;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.forum-header-logo {
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.4);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: #fff;
+  flex-shrink: 0;
+}
+.forum-header-text h1 {
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  line-height: 1.3;
+}
+.forum-header-text p {
+  font-size: 11px;
+  color: rgba(255,255,255,0.75);
+  margin-top: 2px;
+}
+
+/* ── Строка навигации ── */
+.breadcrumb-bar {
+  background: #d4dfe8;
+  border-bottom: 1px solid #b0c4d8;
+  padding: 5px 16px;
+  font-size: 11px;
+  color: var(--text-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.breadcrumb-bar a { color: var(--link); text-decoration: none; }
+.breadcrumb-bar a:hover { text-decoration: underline; color: var(--link-hover); }
+.breadcrumb-right { color: #666; }
+
+/* ── Двухколоночная сетка ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding: 14px 14px 0;
+}
+@media (max-width: 760px) {
+  .two-col { grid-template-columns: 1fr; }
+  .forum-header-text h1 { font-size: 15px; }
+}
+
+/* ── Панель (блок как категория форума) ── */
+.forum-panel {
+  border: 1px solid var(--panel-border);
+  border-radius: 3px;
+  background: var(--panel-bg);
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.forum-panel-head {
+  background: linear-gradient(to bottom, var(--panel-head2), var(--panel-head));
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 7px 12px;
+  border-bottom: 1px solid #1a4070;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.forum-panel-head .icon { opacity: 0.85; }
+
+.forum-panel-body {
+  padding: 12px 14px;
+}
+
+/* ── Вкладки (как nav-tabs форума) ── */
+.tab-bar {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  border-radius: 3px 3px 0 0;
+  color: var(--link);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  padding: 5px 12px;
+  cursor: pointer;
+  line-height: 1.4;
+  transition: background 0.15s;
+}
+.tab-btn:hover {
+  background: var(--btn-hover);
+  color: var(--link-hover);
+}
+.tab-btn.active {
+  background: #ffffff;
+  border-bottom-color: #ffffff;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+/* ── Поля формы ── */
+.field-group {
+  margin-bottom: 10px;
+}
+label {
+  display: block;
+  color: var(--text);
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  background: #f8f8ff;
+  border: 1px solid #9ab0c8;
+  border-radius: 2px;
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  padding: 5px 8px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+  border-color: #336699;
+  box-shadow: 0 0 0 2px rgba(51,102,153,0.2);
+}
+select option { background: #fff; color: var(--text); }
+
+/* ── Радиокнопки ── */
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: normal;
+  color: var(--text);
+}
+input[type="radio"] { accent-color: #336699; cursor: pointer; }
+
+/* ── Кнопки ── */
+.forum-btn {
+  background: linear-gradient(to bottom, #eef3f8, #d8e4ef);
+  border: 1px solid var(--btn-border);
+  border-radius: 3px;
+  color: var(--link);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 6px 14px;
+  cursor: pointer;
+  display: inline-block;
+  transition: background 0.15s;
+}
+.forum-btn:hover {
+  background: linear-gradient(to bottom, #dce8f4, #c5d8ea);
+  color: var(--link-hover);
+}
+.forum-btn:active {
+  background: linear-gradient(to bottom, #c5d8ea, #dce8f4);
+}
+.forum-btn.primary {
+  background: linear-gradient(to bottom, #4488cc, #2266aa);
+  border-color: #1a5090;
+  color: #ffffff;
+  font-size: 13px;
+  padding: 8px 20px;
+}
+.forum-btn.primary:hover {
+  background: linear-gradient(to bottom, #5599dd, #3377bb);
+}
+.forum-btn.danger {
+  background: linear-gradient(to bottom, #f0d8d8, #e0b8b8);
+  border-color: #cc8888;
+  color: var(--red);
+}
+.forum-btn.danger:hover {
+  background: linear-gradient(to bottom, #f8c8c8, #e8a8a8);
+}
+.forum-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+/* ── Канвас ── */
+canvas {
+  border: 1px solid #9ab0c8;
+  border-radius: 2px;
+  display: block;
+  cursor: crosshair;
+  max-width: 100%;
+  height: auto;
+}
+.canvas-hint {
+  font-size: 11px;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+/* ── Прогресс-бар ── */
+.progress-wrap {
+  border: 1px solid #9ab0c8;
+  border-radius: 3px;
+  background: #e8f0f8;
+  height: 20px;
+  position: relative;
+  margin: 8px 0;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #336699, #5599cc);
+  transition: width 0.3s linear;
+}
+.progress-label {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10px;
+  font-weight: bold;
+  color: #1a4070;
+  white-space: nowrap;
+}
+
+/* ── Таблица результатов ── */
+.forum-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-top: 8px;
+}
+.forum-table th {
+  background: #dce8f4;
+  color: var(--link);
+  text-align: left;
+  padding: 5px 10px;
+  border: 1px solid #b0c8e0;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.forum-table td {
+  padding: 5px 10px;
+  border: 1px solid #c8d8e8;
+  color: var(--text);
+}
+.forum-table tr:nth-child(odd) td { background: #f4f8fc; }
+.forum-table tr:nth-child(even) td { background: #e8f0f8; }
+.forum-table tr:hover td { background: var(--row-hover); }
+
+/* ── Блок отображения площади ── */
+.area-display {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--link);
+  background: #e8f4ff;
+  border: 2px solid #336699;
+  border-radius: 4px;
+  text-align: center;
+  padding: 12px;
+  margin: 10px 0;
+}
+
+/* ── Легенда визуализации ── */
+.vis-legend {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 8px;
+  font-size: 11px;
+  color: var(--text-light);
+}
+.vis-legend span { display: flex; align-items: center; gap: 4px; }
+.dot-green { width: 10px; height: 10px; background: #00aa00; border-radius: 50%; display: inline-block; }
+.dot-red   { width: 10px; height: 10px; background: #cc0000; border-radius: 50%; display: inline-block; }
+
+/* ── Список вершин полигона ── */
+.point-list {
+  max-height: 120px;
+  overflow-y: auto;
+  border: 1px solid #9ab0c8;
+  border-radius: 2px;
+  padding: 6px;
+  font-size: 11px;
+  color: var(--text-light);
+  background: #f8faff;
+  font-family: 'Courier New', monospace;
+  scrollbar-width: thin;
+  scrollbar-color: #336699 #e8f0f8;
+}
+
+/* ── Блок ошибки ── */
+.error-box {
+  border: 1px solid #cc8888;
+  border-radius: 3px;
+  color: var(--red);
+  padding: 8px 12px;
+  font-size: 12px;
+  margin: 8px 0;
+  background: #fff0f0;
+}
+
+/* ── Заглушка ── */
+.empty-state {
+  text-align: center;
+  padding: 36px 20px;
+  color: #aab8c8;
+}
+.empty-state .icon { font-size: 36px; display: block; margin-bottom: 10px; }
+.empty-state p { font-size: 12px; line-height: 1.8; }
+
+/* ── Футер ── */
+.forum-footer {
+  background: #d0dae4;
+  border-top: 1px solid #b0c4d8;
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-light);
+  padding: 10px 16px;
+  margin-top: 14px;
+  line-height: 1.8;
+}
+.forum-footer a { color: var(--link); text-decoration: none; }
+.forum-footer a:hover { text-decoration: underline; }
+
+/* ── Подсказки ── */
+.hint {
+  font-size: 11px;
+  color: #778899;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
+/* ── Счётчик семплов (быстрые кнопки) ── */
+.quick-btns {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.quick-btns .forum-btn {
+  font-size: 11px;
+  padding: 4px 10px;
+}
+
+/* ── Мобильная адаптация ── */
+@media (max-width: 760px) {
+  .breadcrumb-bar { font-size: 10px; }
+  .two-col { padding: 8px 8px 0; gap: 8px; }
+  .forum-panel-body { padding: 10px; }
+  .tab-btn { font-size: 11px; padding: 5px 9px; }
+  .area-display { font-size: 16px; }
+  canvas { width: 100% !important; height: auto !important; }
+  .forum-table th, .forum-table td { font-size: 11px; padding: 4px 6px; }
+  .forum-btn.primary { width: 100%; text-align: center; }
+  .forum-header { padding: 10px 12px; }
+  .forum-header-logo { width: 38px; height: 38px; font-size: 20px; }
+  .forum-header-text h1 { font-size: 14px; }
+}
+@media (max-width: 480px) {
+  .forum-header-text h1 { font-size: 12px; }
+  .forum-header-text p { display: none; }
+  .vis-legend { flex-wrap: wrap; }
+  .quick-btns .forum-btn { flex: 1 1 40%; }
+}

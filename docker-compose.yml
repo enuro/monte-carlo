@@ -1,0 +1,58 @@
+services:
+
+  backend:
+    build:
+      context: ./backend
+    environment:
+      - BACKEND_PORT=8080
+    restart: unless-stopped
+    networks:
+      - app-network
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - -sf
+        - -X
+        - POST
+        - http://localhost:8080/api/calculate
+        - -H
+        - "Content-Type: application/json"
+        - -d
+        - '{"shape":{"type":"preset","preset":{"kind":"circle","params":{"radius":1,"cx":0,"cy":0}},"bounding_box":{"x_min":-2,"x_max":2,"y_min":-2,"y_max":2}},"rng":{"type":"lcg","seed":42},"samples":100}'
+      interval: 30s
+      timeout: 15s
+      retries: 3
+      start_period: 10s
+
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - DOMAIN=${DOMAIN}
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt:ro
+      - ./certbot/www:/var/www/certbot:ro
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    # Проверяет и обновляет сертификаты каждые 12 часов
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew --quiet; sleep 12h & wait $${!}; done;'"
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge

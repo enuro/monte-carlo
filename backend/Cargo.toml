@@ -1,0 +1,19 @@
+[package]
+name    = "monte-carlo-backend"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-web       = "4"
+actix-cors      = "0.7"
+actix-multipart = "0.7"
+serde           = { version = "1", features = ["derive"] }
+serde_json      = "1"
+image           = { version = "0.25", default-features = false, features = ["jpeg", "png", "gif", "webp", "bmp"] }
+futures-util    = "0.3"
+
+[profile.release]
+opt-level     = 3
+lto           = true   # Link-Time Optimization — межмодульная инлайн-оптимизация
+codegen-units = 1      # Один блок кодогенерации: медленнее компиляция, быстрее бинарник
+strip         = true   # Убираем отладочные символы из бинарника

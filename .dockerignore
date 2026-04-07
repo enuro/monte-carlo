@@ -1,0 +1,23 @@
+# Git
+.git
+.gitignore
+
+# Rust build artifacts
+backend/target/
+
+# Node modules and build output
+frontend/node_modules/
+frontend/dist/
+
+# IDE / editor
+.claude/
+.vscode/
+.idea/
+
+# Env files (используй переменные окружения на сервере)
+.env
+*.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
