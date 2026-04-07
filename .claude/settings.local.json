@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(ls -la \"A:/Python/ПОртфоливо паши/monte-carlo/{frontend/\")",
-      "Bash(ls -la \"A:/Python/ПОртфоливо паши/monte-carlo/{frontend/src,backend/\")",
-      "Bash(cargo check:*)"
-    ]
-  }
-}

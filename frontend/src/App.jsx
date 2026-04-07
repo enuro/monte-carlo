@@ -1004,7 +1004,7 @@ export default function App() {
       {/* ФУТЕР */}
       <div className="forum-footer">
         Метод Монте-Карло · React + Vite + Rust + Actix-Web<br />
-        © 2024 — Калькулятор площади методом случайных выборок
+        © 2026 — Калькулятор площади методом случайных выборок
       </div>
 
     </div>
